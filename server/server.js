@@ -81,15 +81,15 @@ app.get('/collection', function(req, res){
 })
 
 
-if (process.env.NODE_ENV === 'test') {
+if (!process.env.NODE_ENV) {
   var server = app.listen(app.get('port'), function() {
     db.sequelize.sync();
     console.log("Listening on " + app.get('port'));
   });
 } else {
   var server = db.sequelize.sync().then(function() {
-    http.createServer(app).listen(app.get('port'), function(){
-      console.log('Express server listening on port ' + app.get('port'));
+    http.createServer(app).listen(port, function(){
+      console.log('Express server listening on port ' + port);
     });
   });
 }
