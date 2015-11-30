@@ -3,11 +3,11 @@ var app = express();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var db = require('./server/database');
+var db = require('./database');
 var http = require('http');
 var pg = require('pg');
-var secret = require('./server/secret');
-var instagramKey = require('./server/instagramKey');
+var secret = require('./secret');
+var instagramKey = require('./instagramKey');
 
 app.use(bodyParser.json());
 app.use(cookieParser());
