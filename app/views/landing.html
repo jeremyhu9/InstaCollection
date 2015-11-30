@@ -1,0 +1,30 @@
+<div id="form-outline">
+	<div class="form-header">
+		<h1>InstaCollection</h1>
+	</div>
+
+	<div class="form-input">
+		<p>
+			<label>Enter hashtag</label>
+			<input class="input-hashtag" placeholder="#hashtag" ng-model="user.hash">
+		</p>
+
+		<p>
+			<label>Start date</label>
+			<input class="input-start" placeholder="MO/DY/YR" ng-model="user.start">
+		</p>
+
+		<p>
+			<label>End date</label>
+			<input class="input-end" placeholder="MO/DY/YR" ng-model="user.end">
+		</p>
+
+		<p>
+			<input type="submit" class="btn-submit" ng-click="submit(user)">
+		</p>
+	</div>
+
+	<center><div ng-click="viewCollections()">
+		<p>View my collections</p>
+	</div></center>
+</div>

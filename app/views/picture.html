@@ -1,0 +1,25 @@
+<h1>Pictures that match #{{ tag }}</h1>
+
+<div class="load-more" ng-click="loadMore()">
+	<p>Load More</p>
+</div>
+<div class="picture-outline" ng-repeat="pix in pictures">
+	<div class="image">
+		<img src="{{ pix.images.standard_resolution.url }}" height="350" width="350">
+	</div>
+
+	<div class="username">
+		{{ pix.user.username }}
+	</div>
+
+	<div class="instagram-link">
+		<p><a href="{{ pix.link }}">Go to Page</a></p>
+	</div>
+
+	<div class="instagram-link" ng-click="addCollection(pix)">
+		<p>Add to my Collection</p>
+	</div>
+</div>
+
+
+
