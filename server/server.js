@@ -8,7 +8,7 @@ var http = require('http');
 var pg = require('pg');
 
 
-if (!process.env.SECRETS) {
+if (!process.env.SECRET) {
 	var instagramKey = require('./instagramKey');
 	var secret = require('./secret');
 }
