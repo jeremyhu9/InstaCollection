@@ -6,11 +6,13 @@ var session = require('express-session');
 var db = require('./database');
 var http = require('http');
 var pg = require('pg');
-
+var secret;
 
 if (!process.env.SECRET) {
 	var instagramKey = require('./instagramKey');
-	var secret = require('./secret');
+	secret = require('./secret');
+} else {
+	secret = process.env.SECRET;
 }
 
 app.use(bodyParser.json());
