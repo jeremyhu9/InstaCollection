@@ -6,8 +6,12 @@ var session = require('express-session');
 var db = require('./database');
 var http = require('http');
 var pg = require('pg');
-var secret = require('./secret');
-var instagramKey = require('./instagramKey');
+
+
+if (!process.env.SECRETS) {
+	var instagramKey = require('./instagramKey');
+	var secret = require('./secret');
+}
 
 app.use(bodyParser.json());
 app.use(cookieParser());
