@@ -1,0 +1,23 @@
+{
+  "name": "instacollection",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "jeremy"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/jeremyhu9/InstaCollection",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-ui-router": "~0.2.15"
+  }
+}
