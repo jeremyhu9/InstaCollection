@@ -7,18 +7,22 @@ var db = require('./database');
 var http = require('http');
 var pg = require('pg');
 var secret;
+var instagramkey;
 
 if (!process.env.SECRET) {
-	var instagramKey = require('./instagramKey');
+	instagramKey = require('./instagramKey');
 	secret = require('./secret');
 } else {
 	secret = process.env.SECRET;
+	instagramKey = process.env.INSTAGRAM;
 }
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({secret: secret}));
 app.use(express.static('app'));
+
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 var port = process.env.PORT || 8080;
 
