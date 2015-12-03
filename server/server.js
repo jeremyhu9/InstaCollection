@@ -19,7 +19,7 @@ if (!process.env.SECRET) {
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({secret: secret}));
+app.use(session({secret: secret, resave: true}));
 app.use(express.static('app'));
 
 app.use('/bower_components', express.static(__dirname + 'app/bower_components'));
