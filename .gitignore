@@ -68,3 +68,6 @@ server/instagramkey.js
 
 #Secret key
 server/secret.js
+
+#Build files
+build/built.js
