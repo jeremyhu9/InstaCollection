@@ -22,8 +22,6 @@ app.use(cookieParser());
 app.use(session({secret: secret, resave: true, saveUninitialized: true}));
 app.use(express.static('app'));
 
-app.use('/bower_components', express.static(__dirname + 'app/bower_components'));
-
 var port = process.env.PORT || 8080;
 
 app.get('/', function(req, res){
@@ -91,8 +89,8 @@ app.get('/collection', function(req, res){
 })
 
 
-if (!process.env.NODE_ENV) {
-  var server = app.listen(app.get('port'), function() {
+if (process.env.NODE_ENV === "Production") {
+  var server = app.listen(port, function() {
     db.sequelize.sync();
     console.log("Listening on " + app.get('port'));
   });
