@@ -92,7 +92,7 @@ app.get('/collection', function(req, res){
 if (process.env.NODE_ENV === "Production") {
   var server = app.listen(port, function() {
     db.sequelize.sync();
-    console.log("Listening on " + app.get('port'));
+    console.log("Listening on " + port);
   });
 } else {
   var server = db.sequelize.sync().then(function() {
