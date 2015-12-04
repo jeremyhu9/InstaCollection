@@ -3,7 +3,7 @@ var Sequelize = require('sequelize');
 
 // var connectionString = process.env.DATABASE_URL || 'postgres://localhost/instacollection';
 
-if(process.env.DATABASE_URL) {
+if(process.env.DATABASE_URLL) {
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
     protocol: 'postgres',
