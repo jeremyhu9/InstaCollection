@@ -1,6 +1,8 @@
 var app = angular.module('instaCollection', [
 	'instaCollection.landing',
 	'ui.router',
+	'ui.bootstrap',
+	'ui.bootstrap.tpls',
 	'instaCollection.services',
 	'instaCollection.pictures',
 	'instaCollection.login',

@@ -1,8 +1,7 @@
 <h1>Pictures that match #{{ tag }}</h1>
 
-<div class="load-more" ng-click="loadMore()">
-	<p>Load More</p>
-</div>
+<!-- <div class="load-more" ng-click="loadMore()">
+</div> -->
 <div class="picture-outline" ng-repeat="pix in pictures">
 	<div class="image">
 		<img src="{{ pix.images.standard_resolution.url }}" height="350" width="350">
@@ -20,6 +19,12 @@
 		<p>Add to my Collection</p>
 	</div>
 </div>
+
+<hr>
+	<uib-pager total-items="totalItems" ng-model="currentPage"></uib-pager>
+</hr>
+
+ <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
 
 
 

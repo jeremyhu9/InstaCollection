@@ -6,6 +6,7 @@ var session = require('express-session');
 var db = require('./database');
 var http = require('http');
 var pg = require('pg');
+var cors = require('cors');
 var secret;
 var instagramkey;
 
@@ -17,6 +18,7 @@ if (!process.env.SECRET) {
 	instagramKey = process.env.INSTAGRAM;
 }
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({secret: secret, resave: true, saveUninitialized: true}));
@@ -85,6 +87,20 @@ app.get('/collection', function(req, res){
 		}
 	}).then(function(result) {
 		res.send(result);
+	})
+});
+
+app.post('/delete', function(req, res){
+	console.log("server-->",req)
+	db.pixInfo.findOne({
+		where: {
+			username: req.body.username,
+			imgurl: req.body.imgurl
+		}
+	}).then(function(result){
+		result.destroy().then(function(result){
+			res.send(true)
+		});
 	})
 })
 

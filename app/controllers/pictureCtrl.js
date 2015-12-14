@@ -3,12 +3,15 @@ var app = angular.module('instaCollection.pictures', []);
 app.controller('pictureCtrl', ['$scope', 'services', '$location', function($scope, services, $location){
 	services.auth(function(response) {
 		var username = response;
-		if (!response) {
+		if (!response.username) {
 			$location.path('/login');
 		} 
 		
+		var loadPix = function() {
+			services.loadPictures($scope);
+		}
 		// TODO: Fetch from instagram API
-		services.loadPictures($scope);
+		loadPix();
 
 		$scope.addCollection = function(pix) {
 			var pic = {
@@ -23,8 +26,10 @@ app.controller('pictureCtrl', ['$scope', 'services', '$location', function($scop
 		};
 
 		$scope.loadMore = function() {
-			services.pictureRequest(response, true, response.instagramkey);
+			services.pictureRequest(response, true, response.instagramkey, loadPix);
+
 		}
+
 		
 	});
 

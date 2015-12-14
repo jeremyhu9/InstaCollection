@@ -6,30 +6,32 @@ app.service('services', ['$http', '$location', function($http, $location){
 	var currentTag = '';
 	
 	// $http request to instagram
-	this.pictureRequest = function(user, paginate) {
+	this.pictureRequest = function(user, paginate, key, cb) {
 		var start = Date.UTC(2015, 11, 10);
 		var end = Date.UTC(2015, 11, 12);
 		var tagName = user.hash;
+		var access = key;
 
 		currentTag = tagName;
 		var info = {
-			url: 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?MIN_TAG_ID=' + end +'&MAX_TAG_ID=' + start + '&access_token=229640308.1677ed0.4dff4b9c682a4d73986f679cf7517752&callback=JSON_CALLBACK'
+			url: 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?MIN_TAG_ID=' + end +'&MAX_TAG_ID=' + start + '&access_token=' + access +'&callback=JSON_CALLBACK'
 		};
 
 		if (paginate) {
-			info.url = pix.pagination.next_url;
-
-			// Instagram api route doesn't support jsonp?
+			info.url = pix.pagination.next_url + '&callback=JSON_CALLBACK';
+			
 			$http({
-				method: 'GET',
+				method: 'JSONP',
 				url: info.url
 			}).success(function(data, status){
 				console.log(data)
+				pix = data;
+				cb();
+
 			}).error(function(data, status){
-				console.log(status);
+				console.log("error", status);
 			})
 		} else {
-			console.log(info.url)
 			$http.jsonp(info.url).success(function (data, status) {
 				console.log(data)
 	      pix = data;
@@ -64,6 +66,7 @@ app.service('services', ['$http', '$location', function($http, $location){
 				$location.path('/landing');
 			} else {
 				// Stay on page
+				
 			}
 		}, function errorCallback(response){
 			console.log("Err");
@@ -88,8 +91,8 @@ app.service('services', ['$http', '$location', function($http, $location){
 			url: '/auth',
 			method: 'GET',
 		}).then(function successCallback(response){
-			if (response.data.username) {
-				cb(response.data.username);
+			if (response.data) {
+				cb(response.data);
 				// return true;
 			}	else {
 				cb(false);
@@ -108,6 +111,22 @@ app.service('services', ['$http', '$location', function($http, $location){
 			cb(result);
 		})
 	};
+
+	this.removeCollection = function(pic, cb) {
+		console.log('pic--->', pic)
+		$http({
+			method: 'POST',
+			url: '/delete',
+			data: pic
+		}).then(function(result){
+			console.log("deleted", result)
+
+			if(result) {
+				// update the page 
+				cb();
+			}
+		});
+	}
 
 
 }])
