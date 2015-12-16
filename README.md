@@ -34,6 +34,7 @@ Search Instagram images by hashtag within a specific range of dates. User will b
 - Create instagramkey.js in server directory 
 - Add module.exports = 'key'
 
+### Getting Started
 - Web App
   - Fork the repo
   - Clone from your fork
