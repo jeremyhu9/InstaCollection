@@ -18,7 +18,7 @@ Search Instagram images by hashtag within a specific range of dates. User will b
 		- Instagram API
 
 	- Back end
-		- PostgreSQL with Sequelize -- Allows for relations between users and personal image collections
+		- PostgreSQL with Sequelize 
 		- Node.js/Express
 
 ### Requirements 
