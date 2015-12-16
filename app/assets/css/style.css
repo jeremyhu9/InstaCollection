@@ -104,3 +104,45 @@ label {
 	top: 5px;
 	left: 30px;
 }
+
+.instagram-link a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.instagram-link p {
+	position: relative;
+	left: 35%;
+}
+
+nav {
+	border-bottom: 1px solid black;
+}
+
+nav ul {
+  overflow: auto;
+  list-style-type: none;
+}
+
+nav li {
+	height: 30px;
+	float: left;
+	margin-left: 20px;
+	border-right: 1px solid gray;
+	padding: 0 20px;
+}
+
+nav li:last-child {
+	border-right: none;
+}
+
+nav li:hover {
+	color: #666;
+	font-weight: bold;
+}
+
+nav a {
+	text-decoration: none;
+	color: inherit;
+}
+

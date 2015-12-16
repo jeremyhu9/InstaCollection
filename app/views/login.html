@@ -3,7 +3,7 @@
 		<h1>Login</h1>
 	</div>
 
-	<div class="form-input">
+	<form class="form-input" ng-submit="submit(user)">
 		<p>
 			<label>Enter Username</label>
 			<input class="input-hashtag" placeholder="Username" ng-model="user.username">
@@ -15,10 +15,11 @@
 		</p>
 
 		<p>
-			<input type="submit" class="btn-submit" ng-click="submit(user)">
+			<input type="submit" class="btn-submit">
 		</p>
 
 		<div ng-click="signUp()">
 			<p>Sign up</p>
 		</div>
+	</form>
 </div>

@@ -10,9 +10,6 @@ app.controller('landingCtrl', ['$scope', 'services', '$location', function($scop
 			services.pictureRequest(user, false, response.instagramkey);
 		}
 
-		$scope.viewCollections = function() {
-			$location.path('/collections');
-		}
 		
 	});
 

@@ -1,8 +1,5 @@
-<h1>{{ username }}'s Collections</h1>
+<center><h1>{{ username }}'s Collections</h1><center>
 
-<div class="load-more" ng-click="loadMore()">
-	<p>Load More</p>
-</div>
 <div>
 	<div class="picture-outline" ng-repeat="pix in pictures">
 		<div class="image">
@@ -18,7 +15,9 @@
 		</div>
 
 		<div class="instagram-link" ng-click="removeItem(pix)">
-			<p>Remove from Collection</p>
+			<p>Remove</p>
 		</div>
 	</div>
 </div>
+
+ <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
