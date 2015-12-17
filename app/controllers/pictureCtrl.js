@@ -10,7 +10,7 @@ app.controller('pictureCtrl', ['$scope', 'services', '$location', function($scop
 		var loadPix = function() {
 			services.loadPictures($scope);
 		}
-		// TODO: Fetch from instagram API
+		
 		loadPix();
 
 		$scope.addCollection = function(pix) {
