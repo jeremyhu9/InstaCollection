@@ -71,12 +71,19 @@ label {
 	margin-left: 50px;
 	box-shadow: 10px 10px 5px #888888;
 	border-radius: 15px;
+	overflow: auto;
+	position: relative;
 }
 
 .username {
+	width: 50%;
+	height: 40px;
+	margin: 0 auto;
+}
+
+.username span {
 	position: relative;
-	left: 45%;
-	margin: 10px 0 10px 0;
+	top: 10px;
 }
 
 .image {
@@ -102,17 +109,12 @@ label {
 	color: white;
 	position: relative;
 	top: 5px;
-	left: 30px;
+	left: 5px;
 }
 
 .instagram-link a {
 	color: inherit;
 	text-decoration: none;
-}
-
-.instagram-link p {
-	position: relative;
-	left: 35%;
 }
 
 nav {

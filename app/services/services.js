@@ -2,17 +2,15 @@ var app = angular.module('instaCollection.services', []);
 
 app.service('services', ['$http', '$location', function($http, $location){
 
-	var pix;
-	var currentTag = '';
+	var tagName = '';
 	
 	// $http request to instagram
 	this.pictureRequest = function(user, paginate, key, cb) {
 		var start = Date.UTC(2015, 11, 10);
 		var end = Date.UTC(2015, 11, 12);
-		var tagName = user.hash;
 		var access = key;
+		tagName = user.hash;
 
-		currentTag = tagName;
 		var info = {
 			url: 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?MIN_TAG_ID=' + end +'&MAX_TAG_ID=' + start + '&access_token=' + access +'&callback=JSON_CALLBACK'
 		};
@@ -24,17 +22,15 @@ app.service('services', ['$http', '$location', function($http, $location){
 				method: 'JSONP',
 				url: info.url
 			}).success(function(data, status){
-				console.log(data)
-				pix = data;
+				sessionStorage.setItem('pix', data);
 				cb();
-
 			}).error(function(data, status){
 				console.log("error", status);
 			})
 		} else {
 			$http.jsonp(info.url).success(function (data, status) {
-				console.log(data)
-	      pix = data;
+	      pix = JSON.stringify(data);
+	      sessionStorage.setItem('pix', pix);
 	      if ($location.url() !== '/pictures') {
 	        $location.path('/pictures');
 	      }
@@ -47,10 +43,13 @@ app.service('services', ['$http', '$location', function($http, $location){
 	};
 
 	this.loadPictures = function(scope) {
+		var tempPix = sessionStorage.getItem('pix');
+		tempPix = JSON.parse(tempPix);
 		$scope = scope;
 		
-		$scope.tag = currentTag;
-		$scope.pictures = pix.data;
+		$scope.tag = tagName;
+		// $scope.pictures = pix.data;
+		$scope.pictures = tempPix.data;
 	};
 
 	this.sendUser = function(user) {
@@ -74,7 +73,7 @@ app.service('services', ['$http', '$location', function($http, $location){
 	};
 
 	this.addCollection = function(pixInfo) {
-		console.log("clicked")
+		console.log("clicked", pixInfo)
 		$http({
 			url: '/addCollection',
 			method: 'POST',
