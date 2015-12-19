@@ -26,7 +26,10 @@ app.controller('pictureCtrl', ['$scope', 'services', '$location', function($scop
 		};
 
 		$scope.loadMore = function() {
-			services.pictureRequest(response, true, response.instagramkey, loadPix);
+			services.pictureRequest(username, true, response.instagramkey, function(){
+				console.log('loading')
+				loadPix();
+			});
 
 		}
 

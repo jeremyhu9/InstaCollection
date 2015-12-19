@@ -9,7 +9,11 @@ app.controller('collectionCtrl', ['$scope', 'services', '$location', function($s
 			services.fetchCollection(function(result){
 				var pix = result.data;
 				
+				$scope.currentPage = 0;
+				$scope.pageSize = 6;
 				$scope.pictures = pix;
+				$scope.numberOfPages = Math.ceil($scope.pictures.length/$scope.pageSize);
+				
 			});
 		}
 

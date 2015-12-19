@@ -148,3 +148,15 @@ nav a {
 	color: inherit;
 }
 
+.load-more {
+	position: absolute;
+	height: 120px;
+	bottom: 0;
+	border-radius: 50%;
+}
+
+.load-more p {
+	position: absolute;
+	left: 50%;
+}
+

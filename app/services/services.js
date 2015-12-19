@@ -3,6 +3,8 @@ var app = angular.module('instaCollection.services', []);
 app.service('services', ['$http', '$location', function($http, $location){
 
 	var tagName = '';
+	var pix;
+	var next_url = '';
 	
 	// $http request to instagram
 	this.pictureRequest = function(user, paginate, key, cb) {
@@ -16,21 +18,26 @@ app.service('services', ['$http', '$location', function($http, $location){
 		};
 
 		if (paginate) {
-			info.url = pix.pagination.next_url + '&callback=JSON_CALLBACK';
-			
+			info.url = next_url + '&callback=JSON_CALLBACK';
+			console.log("Here")
 			$http({
 				method: 'JSONP',
 				url: info.url
 			}).success(function(data, status){
-				sessionStorage.setItem('pix', data);
+				console.log(data)
+				pix = pix.concat(data.data);
+				next_url = data.pagination.next_url;
+				sessionStorage.setItem('pix', JSON.stringify(pix));
 				cb();
 			}).error(function(data, status){
 				console.log("error", status);
 			})
 		} else {
 			$http.jsonp(info.url).success(function (data, status) {
-	      pix = JSON.stringify(data);
-	      sessionStorage.setItem('pix', pix);
+				next_url = data.pagination.next_url;
+				pix = data.data;
+	      
+	      sessionStorage.setItem('pix', JSON.stringify(pix));
 	      if ($location.url() !== '/pictures') {
 	        $location.path('/pictures');
 	      }
@@ -49,7 +56,7 @@ app.service('services', ['$http', '$location', function($http, $location){
 		
 		$scope.tag = tagName;
 		// $scope.pictures = pix.data;
-		$scope.pictures = tempPix.data;
+		$scope.pictures = tempPix;
 	};
 
 	this.sendUser = function(user) {

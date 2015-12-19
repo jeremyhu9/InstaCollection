@@ -1,8 +1,6 @@
 var app = angular.module('instaCollection', [
 	'instaCollection.landing',
 	'ui.router',
-	'ui.bootstrap',
-	'ui.bootstrap.tpls',
 	'instaCollection.services',
 	'instaCollection.pictures',
 	'instaCollection.login',
@@ -41,6 +39,15 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 	  })
 
 }]);
+
+app.filter('startFrom', function(){
+	return function(input, start) {
+		if(input) {
+			start = +start;
+			return input.slice(start);
+		}
+	}
+})
 
 // Checks if user is authenticated when changing routes
 // app.run(['$rootScope', '$location', function($rootScope, $location){
