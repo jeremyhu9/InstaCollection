@@ -1,6 +1,6 @@
 var app = angular.module('instaCollection.services', []);
 
-app.service('services', ['$http', '$location', function($http, $location){
+app.service('services', ['$http', '$location', '$rootScope', function($http, $location, $rootScope){
 
 	var tagName = '';
 	var pix;
@@ -13,21 +13,28 @@ app.service('services', ['$http', '$location', function($http, $location){
 		var access = key;
 		tagName = user.hash;
 
+		sessionStorage.setItem('tag', JSON.stringify(tagName));
+
 		var info = {
 			url: 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?MIN_TAG_ID=' + end +'&MAX_TAG_ID=' + start + '&access_token=' + access +'&callback=JSON_CALLBACK'
 		};
 
 		if (paginate) {
+			// If user refreshes the page
+			if (!pix) {
+				pix = JSON.parse(sessionStorage.getItem('pix'));
+			}
+
+			next_url = JSON.parse(sessionStorage.getItem('nextUrl'));
 			info.url = next_url + '&callback=JSON_CALLBACK';
-			console.log("Here")
 			$http({
 				method: 'JSONP',
 				url: info.url
 			}).success(function(data, status){
-				console.log(data)
 				pix = pix.concat(data.data);
 				next_url = data.pagination.next_url;
 				sessionStorage.setItem('pix', JSON.stringify(pix));
+				sessionStorage.setItem('nextUrl', JSON.stringify(next_url));
 				cb();
 			}).error(function(data, status){
 				console.log("error", status);
@@ -38,6 +45,8 @@ app.service('services', ['$http', '$location', function($http, $location){
 				pix = data.data;
 	      
 	      sessionStorage.setItem('pix', JSON.stringify(pix));
+	      sessionStorage.setItem('nextUrl', JSON.stringify(next_url));
+
 	      if ($location.url() !== '/pictures') {
 	        $location.path('/pictures');
 	      }
@@ -50,6 +59,10 @@ app.service('services', ['$http', '$location', function($http, $location){
 	};
 
 	this.loadPictures = function(scope) {
+		if(!tagName) {
+			tagName = JSON.parse(sessionStorage.getItem('tag'));
+		}
+
 		var tempPix = sessionStorage.getItem('pix');
 		tempPix = JSON.parse(tempPix);
 		$scope = scope;
@@ -66,8 +79,11 @@ app.service('services', ['$http', '$location', function($http, $location){
 			data: user
 		}).then(function successCallback(response){
 			console.log("success", response);
-			if (response.data) {
-				console.log("here")
+			if (response) {
+				$rootScope.authorized = true;
+
+				sessionStorage.setItem('user', response.data.username);
+				sessionStorage.setItem('instagramkey', response.data.instagramKey)
 				// Reroute to collection page
 				$location.path('/landing');
 			} else {
@@ -92,22 +108,23 @@ app.service('services', ['$http', '$location', function($http, $location){
 		})
 	};
 
-	this.auth = function(cb) {
-		$http({
-			url: '/auth',
-			method: 'GET',
-		}).then(function successCallback(response){
-			if (response.data) {
-				cb(response.data);
-				// return true;
-			}	else {
-				cb(false);
-			}
-			return;
-		}, function errorCallback(response){
-			console.log("Err");
-		})
-	};
+	// this.auth = function(cb) {
+	// 	$http({
+	// 		url: '/auth',
+	// 		method: 'GET',
+	// 	}).then(function successCallback(response){
+	// 		if (response.data) {
+	// 			$rootScope.authorized = true;
+	// 			cb(response.data);
+	// 			// return true;
+	// 		}	else {
+	// 			cb(false);
+	// 		}
+	// 		return;
+	// 	}, function errorCallback(response){
+	// 		console.log("Err");
+	// 	})
+	// };
 
 	this.fetchCollection = function(cb) {
 		$http({

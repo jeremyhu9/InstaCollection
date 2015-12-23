@@ -49,19 +49,11 @@ app.filter('startFrom', function(){
 	}
 })
 
-// Checks if user is authenticated when changing routes
-// app.run(['$rootScope', '$location', function($rootScope, $location){
-// 	$rootScope.$on('$routeChangeStart', function(event){
-// 		console.log("working")
-// 		// if (!Auth.isLoggedIn()) {
-// 	 //    console.log('DENY');
-// 	 //    event.preventDefault();
-// 	 //    $location.path('/login');
-//   //   }
-//   //   else {
-//   //     console.log('ALLOW');
-//   //     $location.path('/landing');
-//   //   }
-//   $location.path('/landing');
-// 	})
-// }])
+//Checks if user is authenticated when changing routes
+app.run(['$rootScope', '$location', function($rootScope, $location){
+	$rootScope.$on('$locationChangeStart', function(event){
+		if (!$rootScope.authorized) {
+			$location.path('/login');
+		} 
+	})
+}])

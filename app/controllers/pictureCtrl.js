@@ -1,11 +1,8 @@
 var app = angular.module('instaCollection.pictures', []);
 
 app.controller('pictureCtrl', ['$scope', 'services', '$location', function($scope, services, $location){
-	services.auth(function(response) {
-		var username = response;
-		if (!response.username) {
-			$location.path('/login');
-		} 
+		var username = sessionStorage.getItem('user');
+		var instagramkey = sessionStorage.getItem('instagramkey');
 		
 		var loadPix = function() {
 			services.loadPictures($scope);
@@ -26,15 +23,13 @@ app.controller('pictureCtrl', ['$scope', 'services', '$location', function($scop
 		};
 
 		$scope.loadMore = function() {
-			services.pictureRequest(username, true, response.instagramkey, function(){
+			services.pictureRequest(username, true, instagramkey, function(){
 				console.log('loading')
 				loadPix();
 			});
 
 		}
 
-		
-	});
 
 	
 }])

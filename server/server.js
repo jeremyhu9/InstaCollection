@@ -61,8 +61,13 @@ app.post('/userinfo', function(req, res){
 			password: req.body.password
 		}
 	}).then(function(user){
+		var userinfo = {};
+
+		userinfo.username = req.body.username;
+		userinfo.instagramKey = instagramKey;
+
 		req.session.username = req.body.username;
-		res.send(user);
+		res.send(userinfo);
 	});
 
 });
@@ -120,8 +125,6 @@ if (process.env.NODE_ENV === "Production") {
   });
 }
 
-// app.listen(port);
-// console.log("Using:", port);
 
 
 

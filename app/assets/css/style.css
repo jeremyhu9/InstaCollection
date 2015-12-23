@@ -47,14 +47,18 @@ body {
 	border: 1px solid #00ccff;
 	width: 125px;
 	height: 125px;
+	position: absolute;
+	bottom: 0;
+	background-color: #33ccff;
 }
 
 .load-more p {
-	position: relative;
+	position: absolute;
 	top: 50%;
 	left: 50%;
 	margin-top: -15px;
 	margin-left: -30px;
+	color: white;
 }
 
 label {
@@ -148,15 +152,4 @@ nav a {
 	color: inherit;
 }
 
-.load-more {
-	position: absolute;
-	height: 120px;
-	bottom: 0;
-	border-radius: 50%;
-}
-
-.load-more p {
-	position: absolute;
-	left: 50%;
-}
 
