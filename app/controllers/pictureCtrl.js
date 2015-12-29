@@ -6,8 +6,6 @@ app.controller('pictureCtrl', ['$scope', 'services', '$location', function($scop
 		
 		var loadPix = function() {
 			services.loadPictures($scope);
-
-			var loadMore = document.createElement('div');
 		}
 		
 		loadPix();
@@ -15,7 +13,7 @@ app.controller('pictureCtrl', ['$scope', 'services', '$location', function($scop
 		$scope.addCollection = function(pix) {
 			var pic = {
 				imgurl: pix.images.standard_resolution.url,
-				username: username.username,
+				username: username,
 				link: pix.link,
 				uploader: pix.user.username
 			};

@@ -17,12 +17,15 @@
 		<div class="instagram-link" ng-click="addCollection(pix)">
 			<p>Add to my Collection</p>
 		</div>
+		
+		<div class="load-more" ng-click="loadMore()" ng-if="$index === pictures.length - 1">
+			<p>Load More</p>
+		</div>
+
 	</div>
 </div>
 
-<!-- <div class="load-more" ng-click="loadMore()">
-	<p>Load More</p>
-</div> -->
+
 
 
 

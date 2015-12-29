@@ -74,7 +74,8 @@ app.post('/userinfo', function(req, res){
 
 // Adds instagram photo info into DB
 app.post('/addcollection', function(req, res){
-	console.log("------->",req.body)
+	// console.log("------->",req.body)
+	console.log(req.body.username)
 	db.pixInfo.create({
 		imgurl: req.body.imgurl,
 		username: req.body.username,
