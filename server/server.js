@@ -21,7 +21,7 @@ if (!process.env.SECRET) {
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({secret: secret, resave: true, saveUninitialized: true}));
+app.use(session({secret: secret, resave: true, saveUninitialized: true, cookie: {maxAge: 3600000}}));
 app.use(express.static('app'));
 
 var port = process.env.PORT || 8080;
@@ -62,7 +62,7 @@ app.post('/userinfo', function(req, res){
 		}
 	}).then(function(user){
 		var userinfo = {};
-
+		console.log(req.sessionID)
 		userinfo.username = req.body.username;
 		userinfo.instagramKey = instagramKey;
 

@@ -1,5 +1,4 @@
 body {
-	position: relative;
 	margin: 0;
 	padding: 0;
 	width: 100%;
@@ -49,6 +48,7 @@ body {
 	height: 125px;
 	position: absolute;
 	bottom: 0;
+	left: 45%;
 	background-color: #33ccff;
 }
 

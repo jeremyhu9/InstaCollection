@@ -37,6 +37,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 	  	controller: 'signupCtrl',
 	  	templateUrl: 'views/signup.html'
 	  })
+	  .state('/logout', {
+	  	url: '/logout',
+	  	controller: 'logoutCtrl',
+	  })
 
 }]);
 
@@ -52,6 +56,7 @@ app.filter('startFrom', function(){
 //Checks if user is authenticated when changing routes
 app.run(['$rootScope', '$location', function($rootScope, $location){
 	$rootScope.$on('$locationChangeStart', function(event){
+		console.log("authorization:---->", $rootScope.authorized)
 		if (!$rootScope.authorized) {
 			$location.path('/login');
 		} 

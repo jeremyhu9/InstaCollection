@@ -11,9 +11,11 @@ app.service('services', ['$http', '$location', '$rootScope', function($http, $lo
 		var start = Date.UTC(2015, 11, 10);
 		var end = Date.UTC(2015, 11, 12);
 		var access = key;
-		tagName = user.hash;
 
-		sessionStorage.setItem('tag', JSON.stringify(tagName));
+		if (user.hash) {
+			tagName = user.hash;
+			sessionStorage.setItem('tag', JSON.stringify(tagName));
+		}
 
 		var info = {
 			url: 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?MIN_TAG_ID=' + end +'&MAX_TAG_ID=' + start + '&access_token=' + access +'&callback=JSON_CALLBACK'
@@ -66,10 +68,9 @@ app.service('services', ['$http', '$location', '$rootScope', function($http, $lo
 		var tempPix = sessionStorage.getItem('pix');
 		tempPix = JSON.parse(tempPix);
 		$scope = scope;
-		
 		$scope.tag = tagName;
-		// $scope.pictures = pix.data;
 		$scope.pictures = tempPix;
+
 	};
 
 	this.sendUser = function(user) {
@@ -107,24 +108,6 @@ app.service('services', ['$http', '$location', '$rootScope', function($http, $lo
 			console.log("Error adding to collection");
 		})
 	};
-
-	// this.auth = function(cb) {
-	// 	$http({
-	// 		url: '/auth',
-	// 		method: 'GET',
-	// 	}).then(function successCallback(response){
-	// 		if (response.data) {
-	// 			$rootScope.authorized = true;
-	// 			cb(response.data);
-	// 			// return true;
-	// 		}	else {
-	// 			cb(false);
-	// 		}
-	// 		return;
-	// 	}, function errorCallback(response){
-	// 		console.log("Err");
-	// 	})
-	// };
 
 	this.fetchCollection = function(cb) {
 		$http({

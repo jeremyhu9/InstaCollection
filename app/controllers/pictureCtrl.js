@@ -6,6 +6,8 @@ app.controller('pictureCtrl', ['$scope', 'services', '$location', function($scop
 		
 		var loadPix = function() {
 			services.loadPictures($scope);
+
+			var loadMore = document.createElement('div');
 		}
 		
 		loadPix();
