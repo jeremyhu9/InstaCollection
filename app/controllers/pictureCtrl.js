@@ -9,7 +9,7 @@ app.controller('pictureCtrl', ['$scope', 'services', '$location', function($scop
 		}
 		
 		loadPix();
-
+		
 		$scope.addCollection = function(pix) {
 			var pic = {
 				imgurl: pix.images.standard_resolution.url,
