@@ -1,6 +1,9 @@
 {
   "name": "instacollection",
   "version": "1.0.0",
+  "engines": {
+    "node": "4.2.2"
+  },
   "description": "",
   "main": "server.js",
   "dependencies": {
