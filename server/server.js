@@ -45,6 +45,8 @@ app.get('/auth', function(req, res){
 
 // User sign up
 app.post('/signup', function(req, res){
+	// Not good to save password as plaintext!
+	// TODO: Use Bcrypt to encrypt the password before saving to DB.
 	db.User.create({
 		username: req.body.username,
 		password: req.body.password
