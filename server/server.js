@@ -52,7 +52,7 @@ app.post('/signup', function(req, res){
 		password: req.body.password
 	});
 
-	res.send("complete");
+	res.status(201).send("complete");
 })
 
 // Checks if user exist 
@@ -69,15 +69,13 @@ app.post('/userinfo', function(req, res){
 		userinfo.instagramKey = instagramKey;
 
 		req.session.username = req.body.username;
-		res.send(userinfo);
+		res.status(201).send(userinfo);
 	});
 
 });
 
 // Adds instagram photo info into DB
 app.post('/addcollection', function(req, res){
-	// console.log("------->",req.body)
-	console.log(req.body.username)
 	db.pixInfo.create({
 		imgurl: req.body.imgurl,
 		username: req.body.username,
@@ -85,7 +83,7 @@ app.post('/addcollection', function(req, res){
 		uploader: req.body.uploader
 	}).then(function(results){
 		console.log(results)
-		res.send(results);
+		res.status(201).send(results);
 	});
 });
 
@@ -96,12 +94,11 @@ app.get('/collection', function(req, res){
 			username: req.session.username
 		}
 	}).then(function(result) {
-		res.send(result);
+		res.status(200).send(result);
 	})
 });
 
 app.post('/delete', function(req, res){
-	console.log("server-->",req)
 	db.pixInfo.findOne({
 		where: {
 			username: req.body.username,
@@ -109,7 +106,7 @@ app.post('/delete', function(req, res){
 		}
 	}).then(function(result){
 		result.destroy().then(function(result){
-			res.send(true)
+			res.status(200).send(true)
 		});
 	})
 })
