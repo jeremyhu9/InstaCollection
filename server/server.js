@@ -45,18 +45,25 @@ app.get('/auth', function(req, res){
 
 // User sign up
 app.post('/signup', function(req, res){
-	// Not good to save password as plaintext!
-	// TODO: Use Bcrypt to encrypt the password before saving to DB.
+	var password = req.body.password;
+	var username = req.body.username;
+	
 	db.User.create({
-		username: req.body.username,
-		password: req.body.password
+		username: username,
+		password: password
+	}).then(function(user){
+		 res.status(201).send("complete");
 	});
-
-	res.status(201).send("complete");
+	
 })
 
 // Checks if user exist 
 app.post('/userinfo', function(req, res){
+	var password = req.body.password;
+	var username = req.body.username;
+
+	// bcrypt.compareSync(password, hash)
+
 	return db.User.findOne({
 		where: {
 			username: req.body.username,

@@ -57,8 +57,8 @@ app.filter('startFrom', function(){
 app.run(['$rootScope', '$location', function($rootScope, $location){
 	$rootScope.$on('$locationChangeStart', function(event){
 		console.log("authorization:---->", $rootScope.authorized)
-		if (!$rootScope.authorized) {
-			$location.path('/login');
-		} 
+		// if (!$rootScope.authorized) {
+		// 	$location.path('/login');
+		// } 
 	})
 }])

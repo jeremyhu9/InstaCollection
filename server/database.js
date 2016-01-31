@@ -1,7 +1,6 @@
 var pg = require('pg');
 var Sequelize = require('sequelize');
-
-// var connectionString = process.env.DATABASE_URL || 'postgres://localhost/instacollection';
+var bcrypt = require('bcrypt');
 
 if(process.env.DATABASE_URL) {
   sequelize = new Sequelize(process.env.DATABASE_URL, {
@@ -32,6 +31,18 @@ if(process.env.DATABASE_URL) {
 var User = sequelize.define('users', {
   username: {type: Sequelize.STRING, unique: true, allowNull: false},
   password: {type: Sequelize.STRING},
+}, {
+  // Adds user auth methods
+  instanceMethods: {
+    authenticate: function(plainTextPwd) {
+      return bcrypt.compareSync(plainTextPwd, hash);
+    },
+
+    encryptPassword: function(plainTextPwd) {
+      var salt = bcrypt.genSaltSync(10);
+      return bcrypt.hashSync(plainTextPwd, salt);
+    }
+  }
 });
 
 var pixInfo = sequelize.define('pictures', {
@@ -40,6 +51,14 @@ var pixInfo = sequelize.define('pictures', {
 	link: Sequelize.STRING,
 	uploader: Sequelize.STRING
 });
+
+User.beforeCreate(function(user, options){
+  var hashedPassword = user.encryptPassword(user.dataValues.password);
+
+  user.dataValues.password = hashedPassword;
+
+  return;
+})
 
 global.db = {
 	Sequelize: Sequelize,
